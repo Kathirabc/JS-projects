@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        .container {
+            background: #fff;
+            padding: 20px;
+            width: 300px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        input {
+            width: 70%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 8px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #btn {
+            background: #4CAF50;
+            color: white;
+        }
+
+        #btn:hover {
+            background: #45a049;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+        }
+
+        li {
+            background: #f9f9f9;
+            padding: 8px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        span {
+            flex: 1;
+            cursor: pointer;
+        }
+
+        .done {
+            text-decoration: line-through;
+            color: gray;
+        }
+
+        li button {
+            margin-left: 5px;
+            background: #ddd;
+        }
+
+        li button:hover {
+            background: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Todo App</h2>
+
+        <input type="text" id="userinput" placeholder="Enter task">
+        <button id="btn">Add</button>
+
+        <ul id="logg"></ul>
+    </div>
+
+    <script>
+
+        // Load todos from localStorage OR start with empty array
+        let todos = JSON.parse(localStorage.getItem("vals")) || [];
+
+        // Used to track which item is being edited (-1 means no edit)
+        let editIndex = -1;
+
+        const userinput = document.getElementById("userinput");
+        const btn = document.getElementById("btn");
+        const logg = document.getElementById("logg");
+
+        // Save todos array into localStorage
+        function savedata() {
+            localStorage.setItem("vals", JSON.stringify(todos));
+        }
+
+        // Render (display) all todos on screen
+        function renderTodos() {
+            // Clear existing list before re-rendering
+            logg.innerHTML = "";
+
+            // Loop through each todo
+            todos.forEach((todo, index) => {
+                const li = document.createElement("li");
+
+                // Create text span
+                const span = document.createElement("span");
+                span.innerText = todo.text;
+
+                // If task is completed, add "done" style
+                if (todo.done) span.classList.add("done");
+
+                // Toggle complete/incomplete when clicked
+                span.addEventListener("click", () => {
+                    todo.done = !todo.done; // switch true/false
+                    savedata();             // update storage
+                    renderTodos();          // refresh UI
+                });
+
+                //  Edit button
+                const edit = document.createElement("button");
+                edit.innerText = "edit";
+                edit.style.backgroundColor = "#1D4ED8";
+                edit.style.color = "white";
+
+                edit.addEventListener("click", () => {
+                    userinput.value = todo.text; // put text in input box
+                    editIndex = index;           // store index to update later
+                    btn.innerText = "Update";    // change button text
+                });
+
+                // Delete button
+                const del = document.createElement("button");
+                del.innerText = "del";
+                del.style.backgroundColor = "red";
+                del.style.color = "white";
+
+                del.addEventListener("click", () => {
+                    todos.splice(index, 1); // remove item from array
+                    savedata();             // update storage
+                    renderTodos();          // refresh UI
+                });
+
+                // Add elements to list item
+                li.appendChild(span);
+                li.appendChild(edit);
+                li.appendChild(del);
+
+                // Add list item to UI
+                logg.appendChild(li);
+            });
+        }
+
+        // Function to handle Add / Update
+        function handleTask() {
+            const val = userinput.value.trim(); // get input value
+
+            // Prevent empty input
+            if (val === "") return;
+
+            if (editIndex === -1) {
+                // ➕ Add new task
+                todos.push({ text: val, done: false });
+            } else {
+                // ✏️ Update existing task
+                todos[editIndex].text = val;
+                editIndex = -1;        // reset edit mode
+                btn.innerText = "Add"; // change button back
+            }
+
+            userinput.value = ""; // clear input
+            savedata();           // save changes
+            renderTodos();        // update UI
+        }
+
+        // Button click → add/update task
+        btn.addEventListener("click", handleTask);
+
+        // ⌨️ Press Enter → add/update task
+        userinput.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") {
+                handleTask();
+            }
+        });
+
+        // Initial render when page loads
+        renderTodos();
+    </script>
+
+</body>
+
+</html>
