@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMG Slider</title>
+
+    <style>
+        /* ================= BODY ================= */
+        body {
+            background-image: url(cars/bgforcars333.jpg);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
+            margin: 0;
+            padding: 0;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            font-family: Arial;
+        }
+
+        /* ================= HEADER ================= */
+        header {
+            width: 80vw;
+            margin: 10px;
+            padding: 15px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            border-radius: 20px;
+            background-color: rgb(104, 203, 198);
+        }
+
+        /* ================= SLIDER BOX ================= */
+        .slider {
+            margin-top: 40px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+
+            padding: 20px;
+
+            width: 70%;
+            max-width: 800px;
+
+            border-radius: 15px;
+
+            background: rgba(181, 194, 207, 0.9);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ================= IMAGE ================= */
+        img {
+            width: 100%;
+            max-width: 600px;
+            height: 380px;
+
+            border-radius: 15px;
+            object-fit: cover;
+
+            /* smooth animation */
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+
+        /* animation classes */
+        .slide-left {
+            transform: translateX(-10px);
+            opacity: 0;
+        }
+
+        .slide-right {
+            transform: translateX(10px);
+            opacity: 0;
+        }
+
+        /* ================= BUTTONS ================= */
+        button {
+            height: 45px;
+            width: 55px;
+
+            font-size: 1.5rem;
+
+            background: white;
+            border: none;
+            border-radius: 10px;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+            background: black;
+            color: white;
+        }
+
+        /* ================= FOOTER ================= */
+        footer {
+            width: 85%;
+            margin-top: 40px;
+            padding: 20px;
+
+            border-radius: 20px;
+            background-color: rgb(146, 167, 167);
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Exclusive Cars Store</h1>
+    </header>
+
+    <!-- ================= SLIDER ================= -->
+    <div class="slider">
+
+        <button id="pre">
+            </button>
+
+                <img src="cars/bmw1.jpg" id="img">
+
+                <button id="next">></button>
+
+    </div>
+
+    <footer>
+        <section>
+            <h1>SUB TITLE</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores iure quod perspiciatis fugiat quam
+                dolorum nobis aspernatur vel hic vero excepturi quasi ducimus consequuntur sed tempora nisi rem, totam
+                praesentium saepe tenetur, illum, ipsum doloremque eaque? Fugit asperiores pariatur voluptatibus
+                obcaecati reiciendis cupiditate quod provident dolor, corporis, iste similique impedit?</p>
+        </section>
+        <section>
+            <h1>SUB TITLE</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores iure quod perspiciatis fugiat quam
+                dolorum nobis aspernatur vel hic vero excepturi quasi ducimus consequuntur sed tempora nisi rem, totam
+                praesentium saepe tenetur, illum, ipsum doloremque eaque? Fugit asperiores pariatur voluptatibus
+                obcaecati reiciendis cupiditate quod provident dolor, corporis, iste similique impedit?</p>
+        </section>
+        </section>
+        <section>
+            <h1>SUB TITLE</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores iure quod perspiciatis fugiat quam
+                dolorum nobis
+                aspernatur vel hic vero excepturi quasi ducimus consequuntur sed tempora nisi rem, totam praesentium
+                saepe tenetur,
+                illum, ipsum doloremque eaque? Fugit asperiores pariatur voluptatibus obcaecati reiciendis cupiditate
+                quod provident
+                dolor, corporis, iste similique impedit?</p>
+        </section>
+        <section>
+            <h1>SUB TITLE</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores iure quod perspiciatis fugiat quam
+                dolorum nobis
+                aspernatur vel hic vero excepturi quasi ducimus consequuntur sed tempora nisi rem, totam praesentium
+                saepe tenetur,
+                illum, ipsum doloremque eaque? Fugit asperiores pariatur voluptatibus obcaecati reiciendis cupiditate
+                quod provident
+                dolor, corporis, iste similique impedit?</p>
+        </section>
+        <section>
+            <h1>SUB TITLE</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores iure quod perspiciatis fugiat quam
+                dolorum nobis
+                aspernatur vel hic vero excepturi quasi ducimus consequuntur sed tempora nisi rem, totam praesentium
+                saepe tenetur,
+                illum, ipsum doloremque eaque? Fugit asperiores pariatur voluptatibus obcaecati reiciendis cupiditate
+                quod provident
+                dolor, corporis, iste similique impedit?</p>
+        </section>
+
+    </footer>
+
+    <script>
+
+        /* ================= ELEMENTS ================= */
+        let prev = document.getElementById("pre");
+        let next = document.getElementById("next");
+        const img = document.getElementById("img");
+
+        /* ================= IMAGES ================= */
+        let cars = [
+            "cars/bmw1.jpg",
+            "cars/bmw2.jpg",
+            "cars/bmw3.jpg",
+            "cars/c4 corvette.jpg",
+            "cars/mclaren1.jpg"
+        ];
+
+        let index = 0;
+
+        /* ================= SHOW IMAGE ================= */
+        function showImage(direction) {
+
+            /* add animation */
+            img.classList.add(direction);
+
+            setTimeout(() => {
+
+                img.src = cars[index];
+
+                img.classList.remove("slide-left");
+                img.classList.remove("slide-right");
+
+            }, 300);
+        }
+
+        /* ================= NEXT ================= */
+        next.addEventListener("click", () => {
+
+            index++;
+
+            if (index >= cars.length) {
+                index = 0;
+            }
+
+            showImage("slide-left");
+        });
+
+        /* ================= PREVIOUS ================= */
+        prev.addEventListener("click", () => {
+
+            index--;
+
+            if (index < 0) {
+                index = cars.length - 1;
+            }
+
+            showImage("slide-right");
+        });
+
+        /* ================= AUTO SLIDER ================= */
+        setInterval(() => {
+
+            index++;
+
+            if (index >= cars.length) {
+                index = 0;
+            }
+
+            showImage("slide-left");
+
+        }, 3000);
+
+    </script>
+
+</body>
+
+</html>
