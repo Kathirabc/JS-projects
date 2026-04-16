@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 200px;
+            gap: 20px;
+            background-color: rgb(174, 190, 207);
+            width: 40%;
+            height: 40vh;
+            border-radius: 20px;
+        }
+
+        .sizing {
+            width: 20%;
+            text-align: center;
+        }
+
+        #btn {
+            width: 20%;
+            height: 30px;
+            background-color: darkslategray;
+            color: white;
+            border: none;
+            font-size: 1.1rem;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div class="container">
+
+        <h1>Qr Code Generator</h1>
+        <input type="text" id="userinput" class="sizing" placeholder="Enter Your URL / Text">
+        <button id="btn" onclick="generate()" class="sizing">Generate QR</button>
+        <div id="output" class="sizing">
+
+        </div>
+    </div>
+    <script>
+
+        const userinput = document.getElementById("userinput")
+        const btn = document.getElementById("btn")
+        const final = document.getElementById("output")
+        function generate() {
+            if (userinput.value === "") {
+                return
+            }
+            const img = document.createElement("img")
+            img.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${userinput.value}`
+            final.appendChild(img)
+            userinput.value = ""
+
+
+            // let = fetch(``)
+
+        }
+
+
+
+    </script>
+</body>
+
+</html>

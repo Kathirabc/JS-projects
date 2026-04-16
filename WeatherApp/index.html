@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            width: 320px;
+            color: #fff;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h1 {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            background: #ffffff;
+            color: #333;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #ddd;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        .temp {
+            font-size: 40px;
+            font-weight: bold;
+        }
+
+        .condition {
+            font-size: 20px;
+            text-transform: capitalize;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+        <h1>🌤 Weather</h1>
+        <input type="text" id="userinput" placeholder="Enter city name">
+        <button id="btn">Check Weather</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        const userinput = document.getElementById("userinput");
+        const btn = document.getElementById("btn");
+        const final = document.getElementById("result");
+
+        btn.addEventListener("click", async () => {
+            const city = userinput.value;
+
+            if (!city) {
+                final.innerHTML = "⚠️ Please enter a city name";
+                return;
+            }
+
+            try {
+                const response = await fetch(
+                    `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=YOUR_API_KEY&units=metric`
+                );
+
+                const data = await response.json();
+
+                if (data.cod === 200) {
+                    const temp = Math.round(data.main.temp);
+                    const weather = data.weather[0].description;
+
+                    final.innerHTML = `
+                <div class="temp">${temp}°C</div>
+                <div class="condition">${weather}</div>
+            `;
+                } else {
+                    final.innerHTML = "❌ City not found";
+                }
+            } catch (error) {
+                final.innerHTML = "⚠️ Error fetching data";
+                console.log(error);
+            }
+        });
+    </script>
+
+</body>
+
+</html>

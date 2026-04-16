@@ -1,11 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Kathirvel Projects</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial
+        }
+
+        body {
+            background: #0f172a;
+            color: white;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+        }
+
+        header p {
+            opacity: 0.7;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            padding: 30px;
+        }
+
+        .card {
+            background: #1e293b;
+            padding: 25px;
+            border-radius: 15px;
+            transition: 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: -100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .card:hover::before {
+            left: 100%;
+        }
+
+        .card h2 {
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .tag {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            background: #334155;
+            font-size: 0.8rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            opacity: 0.6;
+        }
+    </style>
 </head>
+
 <body>
-    
+
+    <header>
+        <h1>Kathirvel's Projects</h1>
+        <p>Click any project to explore</p>
+    </header>
+
+    <div class="container" id="projects"></div>
+
+    <footer>
+        Built with HTML, CSS & JavaScript
+    </footer>
+
+    <script>
+
+        const projects = [
+            {
+                name: "Calculator App",
+                desc: "Responsive calculator with smooth UI",
+                link: "Calculator_App/index.html",
+                tech: "HTML CSS JS"
+            },
+            {
+                name: "Weather App",
+                desc: "Track a Weather",
+                link: "WeatherApp/index.html",
+                tech: "JavaScript"
+            },
+            {
+                name: "E-Commerce UI",
+                desc: "Dynamic product listing with API",
+                link: "Product-Card/index.html",
+                tech: "Fetch API"
+            },
+            {
+                name: "Todo App",
+                desc: "LocalStorage powered task manager",
+                link: "ToDo/index.html",
+                tech: "Logic"
+            },
+            {
+                name: "Img Slider",
+                desc: "Personal developed Img Slider",
+                link: "Img-slider/index.html",
+                tech: "Frontend"
+            },
+            {
+                name: "Qr Code Generator",
+                desc: "Personal developed Qr Code Generator",
+                link: "QR-code/index.html",
+                tech: "Frontend and JS Logic"
+            }
+        ];
+
+        const container = document.getElementById("projects");
+
+        projects.forEach(p => {
+            const card = document.createElement("div");
+            card.className = "card";
+
+            card.innerHTML = `
+        <h2>${p.name}</h2>
+        <p>${p.desc}</p>
+        <span class="tag">${p.tech}</span>
+    `;
+
+            card.onclick = () => {
+                window.location.href = p.link;
+            };
+
+            container.appendChild(card);
+        });
+
+    </script>
+
 </body>
+
 </html>

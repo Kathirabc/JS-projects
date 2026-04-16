@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Makes layout responsive on mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Kathirvel's Calculator App</title>
+
+    <style>
+        /* Remove default browser spacing and center calculator */
+        body {
+            margin: 0;
+            padding: 0;
+            
+            background-color:gray;
+            display: flex;
+            /* Enable flexbox */
+            justify-content: center;
+            /* Center horizontally */
+            align-items: center;
+            /* Center vertically */
+            height: 100vh;
+            /* Full screen height */
+        }
+
+        /* Calculator container */
+        div {
+            border-radius: 10px;
+            padding: 1rem;
+            /* Inner spacing */
+            width: 90vw;
+            /* Responsive width (90% of screen) */
+            max-width: 400px;
+            /* Limit max size on large screens */
+            background-color: lightgray;
+
+            display: grid;
+            /* Use grid layout */
+            grid-template-columns: repeat(4, 1fr);
+            /* 4 equal columns */
+            gap: 10px;
+            /* Space between buttons */
+        }
+
+        /* Input display (calculator screen) */
+        input {
+            grid-column: span 4;
+            /* Take full width (all columns) */
+            height: 50px;
+            border: none;
+            border-radius: 10px;
+            text-align: center;
+            /* Center text */
+            font-size: 1.5rem;
+            /* Larger text */
+        }
+
+        /* Clear button styling */
+        #clear {
+            grid-column: span 4;
+            /* Full width */
+            background-color: red;
+            color: black;
+        }
+        #delbtn{
+            background-color: rgb(40, 40, 233);
+            
+        }
+
+        /* Common button styles */
+        button {
+            height: 60px;
+            /* Button height */
+            width: 100%;
+            /* Full grid cell width */
+            background-color: black;
+            color: white;
+            border-radius: 15px;
+            border: none;
+            font-size: 1.4rem;
+            cursor: pointer;
+            /* Pointer on hover */
+        }
+
+        /* Operator buttons (+ - * /) */
+        .opr {
+            background-color: rgb(255, 111, 0);
+            color: black;
+            border: 1px black solid;
+        }
+
+        /* Equal button spans 2 rows (taller button) */
+        .equal {
+            grid-row: span 2;
+        }
+
+        /* Mobile screens (small devices) */
+        @media (max-width: 480px) {
+            button {
+                height: 55px;
+                /* Slightly smaller buttons */
+                font-size: 1.8rem;
+            }
+
+            input {
+                height: 45px;
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Tablets & larger screens */
+        @media (min-width: 768px) {
+            div {
+                max-width: 500px;
+                /* Bigger calculator */
+            }
+
+            button {
+                height: 70px;
+                font-size: 1.9rem;
+            }
+
+            input {
+                height: 60px;
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Calculator container -->
+    <div>
+
+        <!-- Display screen -->
+        <input type="text" id="userinput">
+
+        <!-- Clear all input -->
+        <button onclick="clearInput()" id="clear">AC</button>
+
+        <!-- Number and operator buttons -->
+        <button onclick="enterinput('1')">1</button>
+        <button onclick="enterinput('2')">2</button>
+        <button onclick="enterinput('3')">3</button>
+        <button onclick="enterinput('+')" class="opr">+</button>
+
+        <button onclick="enterinput('4')">4</button>
+        <button onclick="enterinput('5')">5</button>
+        <button onclick="enterinput('6')">6</button>
+        <button onclick="enterinput('-')" class="opr">-</button>
+
+        <button onclick="enterinput('7')">7</button>
+        <button onclick="enterinput('8')">8</button>
+        <button onclick="enterinput('9')">9</button>
+        <button onclick="enterinput('*')" class="opr">x</button>
+
+        <!-- Last row -->
+        <button onclick="deleteLast()" id="delbtn">Del</button>
+        <button onclick="enterinput('0')">0</button>
+        <button onclick="enterinput('/')" class="opr">/</button>
+        <button onclick="finalResult()" class="equal">=</button>
+
+    </div>
+
+    <script>
+        /* Get the input field (display screen) */
+        let userinput = document.getElementById("userinput")
+
+        /* Function to add numbers/operators to display */
+        function enterinput(val) {
+            userinput.value += val   // Append clicked value to existing input
+        }
+
+        /* Function to calculate the result */
+        function finalResult() {
+            userinput.value = eval(userinput.value)
+            // eval() evaluates the string as a math expression (e.g., "2+3")
+        }
+
+        /* Function to clear the entire display */
+        function clearInput() {
+            userinput.value = ""
+        }
+
+        /* Function to delete last character */
+        function deleteLast() {
+            userinput.value = userinput.value.slice(0, -1)
+            // slice removes last character from string
+        }
+    </script>
+
+</body>
+
+</html>
